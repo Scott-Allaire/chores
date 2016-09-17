@@ -1,3 +1,3 @@
 module.exports = {
-    database: 'mongodb://glados/chores'
+    database: 'mongodb://localhost/chores'
 };
