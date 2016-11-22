@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Next Due</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let chore of chores">
+      <td>{{ chore.name }}</td>
+      <td>{{ chore.nextDue | date }}</td>
+    </tr>
+  </tbody>
+</table>
