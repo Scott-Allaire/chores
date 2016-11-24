@@ -1,3 +1,31 @@
-<p>
-  chore-detail works!
-</p>
+<form (ngSubmit)="onSubmit()" #choreForm="ngForm">
+  <div class="form-group">
+    <label for="nameInput">Name</label>
+    <input type="text" class="form-control" id="nameInput" placeholder="Name" [(ngModel)]="chore.name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="descriptionInput">Description</label>
+    <textarea class="form-control" id="descriptionInput" [(ngModel)]="chore.description" name="description"></textarea>
+  </div>
+  <div class="row">
+    <div class="col col-sm-6">
+      <div class="form-group">
+        <label for="nextDueInput">Next Due</label>
+        <input type="date" class="form-control" id="nextDueInput" placeholder="Next Due" [(ngModel)]="chore.nextDueString" name="nextDue">
+      </div>
+    </div>
+    <div class="col col-sm-6">
+      <div class="form-group">
+        <label for="frequencyInput">Frequency</label>
+        <select class="form-control" id="frequencyInput" [(ngModel)]="chore.frequency" name="frequency">
+          <option value="P1W">Weekly</option>
+          <option value="P2W">Bi-Weekly</option>
+          <option value="P1M">Monthly</option>
+          <option value="P3M">Quarterly</option>
+          <option value="P1Y">Yearly</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { MomentModule } from 'angular2-moment';
 
 import { ChoreService } from './shared/chore.service';
 
@@ -17,7 +18,9 @@ import { ChoreDetailComponent } from './chore-detail/chore-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'chores', component: ChoresComponent },
+  { path: 'chore-detail/:id', component: ChoreDetailComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -36,6 +39,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     CollapseModule,
+    MomentModule,
   ],
   providers: [
     ChoreService,

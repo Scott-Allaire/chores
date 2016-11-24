@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ChoreService, Chore } from '../shared/chore.service';
 
@@ -11,7 +12,10 @@ export class ChoresComponent implements OnInit {
   
   chores:Array<Chore>;
 
-  constructor(private choreService:ChoreService) { }
+  constructor(
+    private choreService:ChoreService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.choreService.getAll()
@@ -25,4 +29,7 @@ export class ChoresComponent implements OnInit {
       )
   }
 
+  onSelect(chore:Chore) {
+     this.router.navigate(['/chore-detail', chore._id]);
+  }
 }

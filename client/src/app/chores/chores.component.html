@@ -6,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let chore of chores">
+    <tr *ngFor="let chore of chores" (click)="onSelect(chore)">
       <td>{{ chore.name }}</td>
       <td>{{ chore.nextDue | date }}</td>
     </tr>
