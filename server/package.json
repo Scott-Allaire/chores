@@ -17,6 +17,10 @@
     "lodash": "^4.15.0",
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0",
-    "node-restful": "^0.2.5"
+    "node-restful": "^0.2.5",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0"
   }
 }
