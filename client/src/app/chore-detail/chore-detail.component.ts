@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { ChoreService, Chore } from '../shared/chore.service';
 
@@ -14,7 +14,8 @@ export class ChoreDetailComponent implements OnInit {
 
   constructor(
     private choreService: ChoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -23,14 +24,16 @@ export class ChoreDetailComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.choreService.getChore(params['id']))
       .subscribe(chore => {
-        component.chore = chore
+        component.chore = chore;
       });
   }
 
   onSubmit() {
+    var component:ChoreDetailComponent = this;
+    
     this.choreService.saveChore(this.chore)
       .subscribe(chore => {
-        console.log(chore);
+        this.router.navigate(['/chores']);
       })
   }
 }

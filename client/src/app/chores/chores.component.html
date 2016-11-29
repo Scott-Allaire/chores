@@ -1,14 +1,24 @@
+<div class="alert alert-success" role="alert">
+  <strong>Well done!</strong> You successfully read this important alert message.
+</div>
+
+<div>
+  <button class="btn btn-default btn-primary" (click)="onNew()">New</button>
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Next Due</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let chore of chores" (click)="onSelect(chore)">
-      <td>{{ chore.name }}</td>
-      <td>{{ chore.nextDue | date }}</td>
+    <tr *ngFor="let chore of chores">
+      <td (click)="onSelect(chore)">{{ chore.name }}</td>
+      <td (click)="onSelect(chore)">{{ chore.nextDue | date }}</td>
+      <td><button class="btn btn-default btn-primary" (click)="onDelete(chore)">Remove</button></td>
     </tr>
   </tbody>
 </table>

@@ -17,7 +17,7 @@ export class ChoresComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  private refreshList() {
     this.choreService.getAll()
       .subscribe(
         chores => {
@@ -26,10 +26,31 @@ export class ChoresComponent implements OnInit {
         error => {
           console.log(error);
         }
-      )
+      );
+
+  }
+
+  ngOnInit() {
+    this.refreshList();
   }
 
   onSelect(chore:Chore) {
      this.router.navigate(['/chore-detail', chore._id]);
+  }
+
+  onNew() {
+     this.router.navigate(['/chore-detail']);    
+  }
+
+  onDelete(chore:Chore) {
+    this.choreService.removeChore(chore._id)
+      .subscribe(
+        chores => {
+          this.refreshList();
+        },
+        error => {
+          console.log(error);
+        }
+      )
   }
 }

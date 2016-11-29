@@ -21,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'chores', component: ChoresComponent },
   { path: 'chore-detail/:id', component: ChoreDetailComponent },
+  { path: 'chore-detail', component: ChoreDetailComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
