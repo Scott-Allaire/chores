@@ -1,5 +1,8 @@
-<div>
-  <button class="btn btn-default btn-primary" (click)="onNew()">New</button>
+
+<div class="btn-group pull-right margin-bottom-15" role="group" aria-label="...">
+  <button type="button" class="btn btn-default">All</button>
+  <button type="button" class="btn btn-default">Overdue</button>
+  <button type="button" class="btn btn-default btn-primary" (click)="onNew()">Add Chore</button>
 </div>
 
 <table class="table">
@@ -7,14 +10,16 @@
     <tr>
       <th>Name</th>
       <th>Next Due</th>
-      <th>Actions</th>
+      <th class="text-right">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let chore of chores">
       <td (click)="onSelect(chore)">{{ chore.name }}</td>
       <td (click)="onSelect(chore)">{{ chore.nextDue | date }}</td>
-      <td><button class="btn btn-default btn-primary" (click)="onDelete(chore)">Remove</button></td>
+      <td class="text-right">
+          <span class="glyphicon glyphicon-remove text-red" aria-hidden="true" (click)="onDelete(chore)"></span>
+      </td>
     </tr>
   </tbody>
 </table>

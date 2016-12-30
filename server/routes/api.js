@@ -9,6 +9,7 @@ var Event = require('../models/event');
 // Chore.methods(['get','put','post','delete']);
 // Chore.register(router, '/chores');
 router.route('/chores')
+    // get a list of chores
     .get(function (req, res) {
         Chore.find()
             .sort({ name: 1 })
@@ -19,6 +20,7 @@ router.route('/chores')
                 res.json(chores);
             });
     })
+    // create a new chore
     .post(function (req, res) {
 
         var chore = new Chore();
@@ -37,6 +39,7 @@ router.route('/chores')
     });
 
 router.route('/chores/:chore_id')
+    // get a specific chore
     .get(function (req, res) {
         Chore.findById(req.params.chore_id, function (err, chore) {
             if (err)
@@ -44,6 +47,7 @@ router.route('/chores/:chore_id')
             res.json(chore);
         });
     })
+    // update a chore
     .put(function (req, res) {
         Chore.findById(req.params.chore_id, function (err, chore) {
 
@@ -65,6 +69,7 @@ router.route('/chores/:chore_id')
 
         });
     })
+    // remove a chore
     .delete(function (req, res) {
         Chore.remove({
             _id: req.params.chore_id

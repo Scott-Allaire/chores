@@ -12,8 +12,18 @@ Get the dependencies and start the server
 ```
 cd server
 npm i
-nodemon server.js
+npm start
 ```
 
 ## Web Client
-Coming soon...
+The web client is written with Angular 2 in typescript.
+
+
+Get the dependencies and start the client:
+```
+cd client
+npm i
+npm start
+```
+
+Once both the client and server are started, navigate to http://localhost:4200 to see the application.

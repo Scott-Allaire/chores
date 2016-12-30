@@ -36,4 +36,8 @@ export class ChoreDetailComponent implements OnInit {
         this.router.navigate(['/chores']);
       })
   }
+
+  onCancel() {
+    this.router.navigate(['/chores']);
+  }
 }
