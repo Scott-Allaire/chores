@@ -16,7 +16,7 @@ export class ChoreService {
   getAll(): Observable<Array<Chore>> {
     var service: ChoreService = this;
 
-    return Observable.create(function (observer, ) {
+    return Observable.create(function (observer) {
       service.http.get(environment.baseApiUrl + "/chores")
         .subscribe(
         response => {
@@ -31,10 +31,10 @@ export class ChoreService {
     });
   }
 
-  getChore(id: string): Observable<Array<Chore>> {
+  getChore(id: string): Observable<Chore> {
     var service: ChoreService = this;
 
-    return Observable.create(function (observer, ) {
+    return Observable.create(function (observer) {
       service.http.get(environment.baseApiUrl + "/chores/" + id)
         .subscribe(
         response => {
