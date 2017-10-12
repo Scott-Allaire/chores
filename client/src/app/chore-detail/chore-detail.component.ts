@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { ChoreService, Chore } from '../shared/chore.service';
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
   selector: 'app-chore-detail',
@@ -22,19 +23,24 @@ export class ChoreDetailComponent implements OnInit {
     var component:ChoreDetailComponent = this;
 
     this.route.params
-      .switchMap((params: Params) => this.choreService.getChore(params['id']))
+      .switchMap((params: Params) => this.choreService.get(params['id']))
       .subscribe(chore => {
         component.chore = chore;
       });
   }
 
   onSubmit() {
-    var component:ChoreDetailComponent = this;
-    
-    this.choreService.saveChore(this.chore)
-      .subscribe(chore => {
-        this.router.navigate(['/chores']);
-      })
+    if (this.chore._id) {
+      this.choreService.update(this.chore)
+          .subscribe(() => {
+              this.router.navigate(['/chores']);
+          })
+    } else {
+        this.choreService.create(this.chore)
+            .subscribe(() => {
+                this.router.navigate(['/chores']);
+            })
+    }
   }
 
   onCancel() {

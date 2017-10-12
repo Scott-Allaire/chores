@@ -17,7 +17,7 @@ export class ChoresComponent implements OnInit {
     }
 
     private refreshList() {
-        this.choreService.getAll()
+        this.choreService.list()
             .subscribe(
                 chores => {
                     this.chores = chores;
@@ -43,9 +43,8 @@ export class ChoresComponent implements OnInit {
 
     onDelete(chore: Chore) {
         if (confirm('Are you sure you want to delete this chore?')) {
-            this.choreService.removeChore(chore._id)
-                .subscribe(
-                    chores => {
+            this.choreService.remove(chore._id)
+                .subscribe(() => {
                         this.refreshList();
                     },
                     error => {

@@ -1,114 +1,55 @@
-import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
-import { Observer, Observable } from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import * as moment from 'moment';
 
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ChoreService {
 
-  constructor(
-    private http: Http
-  ) { }
+    constructor(private http: Http) {
+    }
 
-  getAll(): Observable<Array<Chore>> {
-    var service: ChoreService = this;
+    list(): Observable<Array<Chore>> {
+        return this.http.get(environment.baseApiUrl + "/chores")
+            .map(resp => resp.json());
+    }
 
-    return Observable.create(function (observer) {
-      service.http.get(environment.baseApiUrl + "/chores")
-        .subscribe(
-        response => {
-          observer.next(response.json());
-          observer.complete();
-        },
-        error => {
-          observer.error(error);
-          observer.complete();
-        }
-        )
-    });
-  }
+    get(id: string): Observable<Chore> {
+        return this.http.get(environment.baseApiUrl + "/chores/" + id)
+            .map(resp => this.transform(resp.json()));
+    }
 
-  getChore(id: string): Observable<Chore> {
-    var service: ChoreService = this;
+    update(chore: Chore): Observable<Chore> {
+        chore.nextDue = moment(chore.nextDueString).toDate();
+        return this.http.put(environment.baseApiUrl + "/chores/" + chore._id, chore)
+            .map(resp => this.transform(resp.json()));
+    }
 
-    return Observable.create(function (observer) {
-      service.http.get(environment.baseApiUrl + "/chores/" + id)
-        .subscribe(
-        response => {
-          var chore: Chore = response.json();
+    create(chore: Chore): Observable<Chore> {
+        chore.nextDue = moment(chore.nextDueString).toDate();
+        return this.http.post(environment.baseApiUrl + "/chores", chore)
+            .map(resp => this.transform(resp.json()));
+    }
 
-          chore.nextDueString = moment(chore.nextDue).format('MM-DDYYYY');
+    remove(choreId: string): Observable<Chore> {
+        return this.http.delete(environment.baseApiUrl + "/chores/" + choreId)
+            .map(resp => this.transform(resp.json()));
+    }
 
-          observer.next(chore);
-          observer.complete();
-        },
-        error => {
-          observer.error(error);
-          observer.complete();
-        }
-        )
-    });
-  }
-
-  saveChore(chore: Chore): Observable<Chore> {
-    var service: ChoreService = this;
-
-    return Observable.create(function (observer, ) {
-      chore.nextDue = moment(chore.nextDueString).toDate();
-      var observable;
-
-      if (chore._id) {
-        observable = service.http.put(
-          environment.baseApiUrl + "/chores/" + chore._id, chore);
-      } else {
-        observable = service.http.post(
-          environment.baseApiUrl + "/chores", chore);
-      }
-      
-      observable.subscribe(
-          response => {
-            var chore: Chore = response.json();
-
-            chore.nextDueString = moment(chore.nextDue).format('MM-DDYYYY');
-
-            observer.next(chore);
-            observer.complete();
-          },
-          error => {
-            observer.error(error);
-            observer.complete();
-          }
-        )
-    });
-  }
-
-  removeChore(choreId:string): Observable<Chore> {
-    var service: ChoreService = this;
-
-    return Observable.create(function (observer, ) {
-      service.http.delete(environment.baseApiUrl + "/chores/" + choreId)
-        .subscribe(
-          response => {
-            observer.next();
-            observer.complete();
-          },
-          error => {
-            observer.error(error);
-            observer.complete();
-          }
-        )
-    });
-  }
+    transform(chore: Chore) {
+        chore.nextDueString = moment(chore.nextDue).format('MM-DDYYYY');
+        return chore;
+    }
 }
 
 export class Chore {
-  _id: string;
-  name: string;
-  description: string;
-  frequency: string;
-  nextDue: Date;
-  nextDueString: string;
+    _id?: string;
+    name?: string;
+    description?: string;
+    frequency?: string;
+    nextDue?: Date;
+    nextDueString?: string;
 }
